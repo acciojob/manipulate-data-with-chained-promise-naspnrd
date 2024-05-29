@@ -1,51 +1,38 @@
-//your JS code here. If required.
-// Get the reference to the HTML element with the ID "output"
-const outputInput = document.getElementById("output");
 
+const output = document.getElementById("output");
+const array = [1, 2, 3, 4];
 
-// Initial array of numbers
-let array = [1, 2, 3, 4];
-
-
-// Function to manipulate the array using chained promises
-function newManipulation(array) {
- // First promise: Filters out even numbers and displays them after 1 second
- // return (
-   new Promise((res, rej) => {
-     setTimeout(() => {
-       // Filter the even numbers from the array
-       const evenNumber = array.filter((num) => num % 2 === 0);
-
-
-       // Update the output to display even numbers
-       outputInput.innerText = evenNumber.join(",");
-
-
-       // Resolve the promise with the even numbers
-       res(evenNumber);
-     }, 1000); // Wait for 1 second
-   })
-     // Chain a second promise to multiply even numbers by 2 and display after 2 seconds
-     .then((evenNumber) => {
-       return new Promise((res, rej) => {
-         setTimeout(() => {
-           // Map over even numbers and multiply each by 2
-           const evenMulti = evenNumber.map((num) => num * 2);
-           // Update the output to display doubled numbers
-           // Here we append to the existing content to display both even and doubled numbers
-           outputInput.innerText = evenMulti.join(",");
-           // Resolve the promise with the doubled numbers
-           res(evenMulti);
-         }, 2000); // Wait for 2 seconds
-       });
-     })
-     // Catch any errors that might occur during promise execution
-     .catch((error) => {
-       console.error("Error", error);
-     })
- // );
+function filterEven() {
+  return new Promise((resolve, reject) => {
+    // Filter out the even numbers from the array
+    const evenArray = array.filter((e) => e % 2 === 0);
+    
+    // Simulate an asynchronous operation with a 1-second delay
+    setTimeout(() => {
+      // Update the output element with the even numbers
+      output.innerText = evenArray.join(", ");
+      // Resolve the promise with the filtered even numbers
+      resolve(evenArray);
+    }, 1000); // 1-second delay
+  });
 }
 
+function multiplyByTwo(val) {
+  return new Promise((resolve, reject) => {
+    // Map over the even numbers array and multiply each number by 2
+    const result = val.map((e) => e * 2);
+    
+    // Simulate an asynchronous operation with a 2-second delay
+    setTimeout(() => {
+      // Update the output element with the multiplied numbers
+      output.innerText = result.join(", ");
+      
+      // Resolve the promise with the multiplied numbers
+      resolve(result);
+    }, 2000); // 2-second delay
+  });
+}
 
-// Call the function to start the promise chain
-newManipulation(array);
+filterEven()
+  .then((val) => multiplyByTwo(val))
+  .catch((error) => console.error("Error:", error)); 
