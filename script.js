@@ -10,7 +10,7 @@ let array = [1, 2, 3, 4];
 // Function to manipulate the array using chained promises
 function newManipulation(array) {
  // First promise: Filters out even numbers and displays them after 1 second
- return (
+ // return (
    new Promise((res, rej) => {
      setTimeout(() => {
        // Filter the even numbers from the array
@@ -31,13 +31,9 @@ function newManipulation(array) {
          setTimeout(() => {
            // Map over even numbers and multiply each by 2
            const evenMulti = evenNumber.map((num) => num * 2);
-
-
            // Update the output to display doubled numbers
            // Here we append to the existing content to display both even and doubled numbers
            outputInput.innerText = evenMulti.join(",");
-
-
            // Resolve the promise with the doubled numbers
            res(evenMulti);
          }, 2000); // Wait for 2 seconds
@@ -47,7 +43,7 @@ function newManipulation(array) {
      .catch((error) => {
        console.error("Error", error);
      })
- );
+ // );
 }
 
 
